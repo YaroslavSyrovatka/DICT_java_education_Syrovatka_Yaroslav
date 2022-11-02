@@ -9,8 +9,7 @@ public class CoffeeMachine {
     private int beans = 120;
     private int cup = 9;
 
-
-    public void printInfo() {
+    private void printInfo(UserInputClass user) {
         System.out.println("The coffee machine has:\n" +
                 water + " of water\n" +
                 milk + " of milk\n" +
@@ -18,42 +17,40 @@ public class CoffeeMachine {
                 cup + " of disposable cups\n" +
                 money + " of money");
 
-        menu();
+        menu(user);
     }
 
-    public void menu() {
-        Scanner userInput = new Scanner(System.in);
+
+    public void menu(UserInputClass user) {
         System.out.print("Write action (buy, fill, take, remaining, exit):\n" +
                 ">");
-        String userChoose = userInput.next();
-        switch (userChoose) {
+        switch (user.userInput()) {
             case "buy":
                 System.out.print("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back – to\n" +
                         "main menu:\n>");
-                String userChooseCoffee = userInput.next();
-                switch (userChooseCoffee) {
+                switch (user.userInput()) {
                     case "1":
-                        espresso();
+                        espresso(user);
                         break;
                     case "2":
-                        latte();
+                        latte(user);
                         break;
                     case "3":
-                        cappuccino();
+                        cappuccino(user);
                         break;
                     case "back":
-                        menu();
+                        menu(user);
                         break;
                 }
                 break;
             case "fill":
-                fill();
+                fill(user);
                 break;
             case "take":
-                take();
+                take(user);
                 break;
             case "remaining":
-                printInfo();
+                printInfo(user);
                 break;
             case "exit":
                 System.exit(0);
@@ -61,27 +58,27 @@ public class CoffeeMachine {
         }
     }
 
-    public void espresso() {
+    private void espresso(UserInputClass user) {
         if(water >= 250 && beans >= 16 && cup >= 1) {
             System.out.println("I have enough resources, making you a coffee!");
             water -= 250;
             beans -= 16;
             cup -= 1;
             money += 4;
-            menu();
+            menu(user);
         } else if(water < 250){
             System.out.println("Sorry, not enough water!");
-            menu();
+            menu(user);
         } else if (beans < 16) {
             System.out.println("Sorry, not enough beans!");
-            menu();
+            menu(user);
         } else {
             System.out.println("Sorry, not enough cups!");
-            menu();
+            menu(user);
         }
     }
 
-    public void latte() {
+    private void latte(UserInputClass user) {
         if(water >= 350 && milk >= 75 && beans >= 20 && cup >= 1) {
             System.out.println("I have enough resources, making you a coffee!");
             water -= 350;
@@ -89,23 +86,23 @@ public class CoffeeMachine {
             beans -= 20;
             cup -= 1;
             money += 7;
-            menu();
+            menu(user);
         } else if(water < 350){
             System.out.println("Sorry, not enough water!");
-            menu();
+            menu(user);
         } else if (milk < 75) {
             System.out.println("Sorry, not enough milk!");
-            menu();
+            menu(user);
         } else if (beans < 20) {
             System.out.println("Sorry, not enough beans!");
-            menu();
+            menu(user);
         } else {
             System.out.println("Sorry, not enough cups!");
-            menu();
+            menu(user);
         }
     }
 
-    public void cappuccino() {
+    private void cappuccino(UserInputClass user) {
         if(water >= 200 && milk >= 100 && beans >= 12 && cup >= 1) {
             System.out.println("I have enough resources, making you a coffee!");
             water -= 200;
@@ -113,23 +110,23 @@ public class CoffeeMachine {
             beans -= 12;
             cup -= 1;
             money += 6;
-            menu();
+            menu(user);
         } else if(water < 200){
             System.out.println("Sorry, not enough water!");
-            menu();
+            menu(user);
         } else if (milk < 100) {
             System.out.println("Sorry, not enough milk!");
-            menu();
+            menu(user);
         } else if (beans < 12) {
             System.out.println("Sorry, not enough beans!");
-            menu();
+            menu(user);
         } else {
             System.out.println("Sorry, not enough cups!");
-            menu();
+            menu(user);
         }
     }
 
-    public void fill() {
+    private void fill(UserInputClass user) {
         Scanner userInput = new Scanner(System.in);
         System.out.print("Write how many ml of water you want to add:\n>");
         water += userInput.nextInt();
@@ -139,13 +136,13 @@ public class CoffeeMachine {
         beans += userInput.nextInt();
         System.out.print("Write how many disposable coffee cups you want to add:\n>");
         cup += userInput.nextInt();
-        menu();
+        menu(user);
     }
 
-    public void take() {
+    private void take(UserInputClass user) {
         System.out.println("I gave you " + money);
         money = 0;
-        menu();
+        menu(user);
     }
 
 
